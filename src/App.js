@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useRef, useState } from "react";
+import "./App.css";
 
 function App() {
+  const canvas = useRef(null);
+  const [ctx, setCtx] = useState();
+
+  const test = () => {
+    // console.log(ctx);
+    ctx.font = "48px serif";
+    ctx.fillText("Hello world", 10, 50);
+  };
+
+  useEffect(() => {
+    setCtx(canvas.current.getContext("2d"));
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="m-5">
+      <canvas ref={canvas}></canvas>
+      <a download={""}>
+        <button className="btn btn-primary">保存</button>
+      </a>
+      <button className="btn btn-secondary" onClick={test}>
+        テスト
+      </button>
     </div>
   );
 }
